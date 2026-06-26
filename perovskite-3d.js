@@ -37,7 +37,7 @@ function initPerovskite3D(container) {
   legendDiv.innerHTML = `
     <div style="display: flex; gap: 12px; align-items: center;">
       <div style="display: flex; align-items: center; gap: 6px;">
-        <div style="width: 12px; height: 12px; background: #4ab8e3; border-radius: 50%;"></div>
+        <div style="width: 12px; height: 12px; background: #22c55e; border-radius: 50%;"></div>
         <span>A</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
@@ -45,7 +45,7 @@ function initPerovskite3D(container) {
         <span>X</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
-        <div style="width: 12px; height: 12px; background: #d0d0d0; border: 1px solid #999; border-radius: 50%;"></div>
+        <div style="width: 12px; height: 12px; background: #fbbf24; border-radius: 50%;"></div>
         <span>B (Pb)</span>
       </div>
     </div>
@@ -61,9 +61,9 @@ function initPerovskite3D(container) {
 
   // Materials
   const aMaterial = new THREE.MeshPhongMaterial({
-    color: 0x4ab8e3,  // Cyan - A cations
+    color: 0x22c55e,  // Green - A cations
     shininess: 100,
-    emissive: 0x2a8ab8
+    emissive: 0x16a34a
   });
 
   const xMaterial = new THREE.MeshPhongMaterial({
@@ -73,9 +73,9 @@ function initPerovskite3D(container) {
   });
 
   const bMaterial = new THREE.MeshPhongMaterial({
-    color: 0xd0d0d0,  // Light gray - B cation (Pb)
+    color: 0xfbbf24,  // Yellow - B cation (Pb)
     shininess: 120,
-    emissive: 0xa0a0a0
+    emissive: 0xf59e0b
   });
 
   // Lighting
