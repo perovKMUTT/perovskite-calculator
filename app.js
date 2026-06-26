@@ -41,6 +41,7 @@ const titles = {
   mapbi3: "MAPbI₃ precursor",
   fapbi3: "FAPbI₃ precursor",
   mapbbr3: "MAPbBr₃ precursor",
+  mixed: "Mixed-Cation Perovskite",
   dopants: "Dopants (CsI / RbI / GAI)",
   spiro: "Spiro-OMeTAD (HTM)",
   ptaa: "PTAA (HTM)",
@@ -52,6 +53,7 @@ const pageRenderers = {
   mapbi3: (root) => renderPerovskitePage(root, "mapbi3"),
   fapbi3: (root) => renderPerovskitePage(root, "fapbi3"),
   mapbbr3: (root) => renderPerovskitePage(root, "mapbbr3"),
+  mixed: renderMixedCationPage,
   dopants: renderDopantsPage,
   spiro: (root) => renderHTMPage(root, "spiro"),
   ptaa: (root) => renderHTMPage(root, "ptaa"),
@@ -144,6 +146,7 @@ function renderSetupPage(root) {
       <tr><td>MAPbI₃</td><td>1.55</td><td>Infrared</td></tr>
       <tr><td>FAPbI₃</td><td>1.48</td><td>Near-IR</td></tr>
       <tr><td>MAPbBr₃</td><td>2.25</td><td>Green</td></tr>
+      <tr><td>Mixed (FA:MA 3:1)</td><td>1.61</td><td>Red-IR</td></tr>
     </tbody>
   </table>`);
   bgCard.appendChild(bgTable);
@@ -231,6 +234,45 @@ function renderPerovskitePage(root, key) {
   refresh();
 
   root.appendChild(el(`<p class="hint">Filter the final solution through a 0.20–0.45 µm PTFE filter before spin-coating. Stir or vortex until fully dissolved (FAI/MABr-based recipes sometimes need gentle heating, ~60–70 °C, to fully dissolve).</p>`));
+}
+
+// ---- Page: mixed-cation perovskite -----------------------------------------
+function renderMixedCationPage(root) {
+  const cfg = PRESETS.mixed;
+  const setup = state.setup;
+
+  root.appendChild(el(`<p class="lead">${cfg.description}</p>`));
+
+  const info = el(`<section class="card">
+    <h3>How to prepare</h3>
+    <ol style="margin: 0; padding-left: 20px; font-size: 0.92rem; color: var(--text);">
+      <li>First prepare fresh <strong>FAPbI₃ solution</strong> (see FAPbI₃ page)</li>
+      <li>First prepare fresh <strong>MAPbBr₃ solution</strong> (see MAPbBr₃ page)</li>
+      <li>Mix them together in a <strong>3:1 volume ratio</strong> (FAPbI₃:MAPbBr₃)</li>
+    </ol>
+  </section>`);
+  root.appendChild(info);
+
+  const result = el(`<div></div>`);
+  root.appendChild(el(`<section class="card"><h3>Mixing volumes needed</h3></section>`).appendChild(result) || el(`<section class="card"><h3>Mixing volumes needed</h3></section>`));
+
+  const mixCard = el(`<section class="card"><h3>Mixing volumes needed</h3><div></div></section>`);
+  const mixOut = mixCard.querySelector("div");
+  root.appendChild(mixCard);
+
+  function refresh() {
+    const res = calcMixedCation({ samplesN: setup.samples, volPerSampleUL: setup.volPerSampleUL, bufferPct: setup.bufferPct, ratioFAPbI3: 3, ratioMAPbBr3: 1 });
+    mixOut.innerHTML = "";
+    mixOut.appendChild(row("Total final mixed solution needed", fmt(res.finalVolUL, 1), { unit: "µL", highlight: true }));
+    mixOut.appendChild(row("Mix FAPbI₃ solution", fmt(res.volFAPbI3UL, 1), { unit: "µL", highlight: true }));
+    mixOut.appendChild(row("Mix MAPbBr₃ solution", fmt(res.volMAPbBr3UL, 1), { unit: "µL", highlight: true }));
+    mixOut.appendChild(row("Mixing ratio (FAPbI₃:MAPbBr₃)", res.ratioStr));
+    mixOut.appendChild(row("Expected bandgap", fmt(cfg.bandgap, 2), { unit: "eV" }));
+  }
+  currentRefresh = refresh;
+  refresh();
+
+  root.appendChild(el(`<p class="hint">Stir or vortex the mixed solution for 30 seconds to ensure homogeneous blending. The bandgap of this mixed-cation composition is intermediate between FAPbI₃ (1.48 eV) and MAPbBr₃ (2.25 eV).</p>`));
 }
 
 // ---- Page: dopants ---------------------------------------------------------

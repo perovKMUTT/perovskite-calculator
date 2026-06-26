@@ -112,3 +112,11 @@ function calcAdditiveStockPrep({ mw, stockM, weighedMassG, density }) {
   const volL = mol / stockM;
   return { mol, volmL: volL * 1000 };
 }
+
+function calcMixedCation({ samplesN, volPerSampleUL, bufferPct, ratioFAPbI3, ratioMAPbBr3 }) {
+  const finalVolUL = totalFinalVolumeUL(samplesN, volPerSampleUL, bufferPct);
+  const totalRatio = ratioFAPbI3 + ratioMAPbBr3;
+  const volFAPbI3UL = finalVolUL * (ratioFAPbI3 / totalRatio);
+  const volMAPbBr3UL = finalVolUL * (ratioMAPbBr3 / totalRatio);
+  return { finalVolUL, volFAPbI3UL, volMAPbBr3UL, ratioStr: `${ratioFAPbI3}:${ratioMAPbBr3}` };
+}
