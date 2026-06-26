@@ -26,19 +26,49 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
-  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 14px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.topbar-org {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  margin-bottom: 2px;
+}
+
+.topbar-title {
   font-weight: 600;
   font-size: 1.05rem;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 main#app {
-  padding: 14px 14px 100px;
+  padding: 14px 14px 140px;
   max-width: 640px;
   margin: 0 auto;
+}
+
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 14px calc(env(safe-area-inset-bottom, 0px) + 8px);
+  background: white;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.app-footer p {
+  margin: 0;
 }
 
 .bottomnav {
