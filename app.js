@@ -130,6 +130,18 @@ function row(label, value, opts = {}) {
 function renderSetupPage(root) {
   const s = state.setup;
 
+  // 3D Perovskite Structure
+  const vizCard = el(`<section class="card"><h3>ABX₃ Perovskite Structure (3D)</h3><div id="perovskite-3d" style="width: 100%; min-height: 300px;"></div></section>`);
+  root.appendChild(vizCard);
+
+  // Initialize 3D visualization after a brief delay to ensure container is rendered
+  setTimeout(() => {
+    const container = document.getElementById("perovskite-3d");
+    if (container && window.initPerovskite3D) {
+      initPerovskite3D(container);
+    }
+  }, 100);
+
   // Bandgap reference table
   const bgCard = el(`<section class="card"><h3>Bandgap Energy (eV) by Recipe</h3></section>`);
   const bgTable = el(`<table class="bandgap-table">
