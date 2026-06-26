@@ -81,6 +81,12 @@ const DOPANTS = {
   gai: { name: "GAI", mw: MW.GAI, solvent: "DMSO (neat)", ratioA: 1, ratioB: 0, solventA: "DMSO", solventB: "DMSO", defaultM: 1.5 }
 };
 
+const BANDGAP_DATA = {
+  mapbi3: { name: "MAPbI₃", bandgap: 1.55, color: "🔴" },
+  fapbi3: { name: "FAPbI₃", bandgap: 1.48, color: "🟠" },
+  mapbbr3: { name: "MAPbBr₃", bandgap: 2.25, color: "🟡" }
+};
+
 const HTM_PRESETS = {
   spiro: {
     name: "Spiro-OMeTAD",

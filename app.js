@@ -127,6 +127,28 @@ function row(label, value, opts = {}) {
 // ---- Page: Setup -----------------------------------------------------------
 function renderSetupPage(root) {
   const s = state.setup;
+
+  // Perovskite structure visualization
+  const vizCard = el(`<section class="card"><h3>ABX₃ Perovskite Structure</h3><div class="perov-structure" id="perov-viz-container"></div></section>`);
+  const vizContainer = vizCard.querySelector("#perov-viz-container");
+  const svgEl = document.getElementById("perovskite-viz").cloneNode(true);
+  svgEl.style.display = "block";
+  vizContainer.appendChild(svgEl);
+  root.appendChild(vizCard);
+
+  // Bandgap reference table
+  const bgCard = el(`<section class="card"><h3>Bandgap Energy (eV) by Recipe</h3></section>`);
+  const bgTable = el(`<table class="bandgap-table">
+    <thead><tr><th>Perovskite</th><th>Bandgap (eV)</th><th>Light Absorption</th></tr></thead>
+    <tbody>
+      <tr><td>MAPbI₃</td><td>1.55</td><td>Infrared</td></tr>
+      <tr><td>FAPbI₃</td><td>1.48</td><td>Near-IR</td></tr>
+      <tr><td>MAPbBr₃</td><td>2.25</td><td>Green</td></tr>
+    </tbody>
+  </table>`);
+  bgCard.appendChild(bgTable);
+  root.appendChild(bgCard);
+
   root.appendChild(el(`<p class="lead">Tell the app how many samples you're preparing today. Every recipe page below will scale automatically from this.</p>`));
 
   const fields = el(`<div class="field-grid"></div>`);

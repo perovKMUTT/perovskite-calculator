@@ -257,3 +257,52 @@ table.dens-table th { color: var(--muted); font-weight: 600; }
 @media (max-width: 380px) {
   .field-grid { grid-template-columns: 1fr; }
 }
+
+.perov-structure {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  perspective: 1000px;
+}
+
+.perov-structure svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+}
+
+@keyframes rotate-perov {
+  from { transform: rotateX(0deg) rotateY(0deg); }
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.perov-group {
+  animation: rotate-perov 8s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+.bandgap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 12px 0;
+}
+
+.bandgap-table th, .bandgap-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.bandgap-table th {
+  background: var(--highlight-bg);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.bandgap-table td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--primary);
+}

@@ -24,6 +24,36 @@
   </div>
 </header>
 
+<svg id="perovskite-viz" style="display:none;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes rotate { to { transform: rotateX(360deg) rotateY(360deg); } }
+    .perov-group { transform-origin: 100px 100px; animation: rotate 8s linear infinite; }
+    .a-ion { fill: #7c3aed; }
+    .b-ion { fill: #f97316; }
+    .x-ion { fill: #06b6d4; }
+    .label { font-size: 10px; font-weight: bold; fill: white; }
+  </style>
+  <g class="perov-group">
+    <!-- B (Pb) center -->
+    <circle cx="100" cy="100" r="12" class="b-ion"/>
+    <text x="100" y="105" text-anchor="middle" class="label">Pb</text>
+
+    <!-- X (I/Br) at corners -->
+    <circle cx="60" cy="60" r="8" class="x-ion"/>
+    <circle cx="140" cy="60" r="8" class="x-ion"/>
+    <circle cx="60" cy="140" r="8" class="x-ion"/>
+    <circle cx="140" cy="140" r="8" class="x-ion"/>
+    <circle cx="100" cy="60" r="8" class="x-ion"/>
+    <circle cx="100" cy="140" r="8" class="x-ion"/>
+    <circle cx="60" cy="100" r="8" class="x-ion"/>
+    <circle cx="140" cy="100" r="8" class="x-ion"/>
+
+    <!-- A (MA/FA) corners (larger sphere) -->
+    <circle cx="50" cy="50" r="10" class="a-ion" opacity="0.7"/>
+    <text x="50" y="55" text-anchor="middle" class="label" font-size="8">A</text>
+  </g>
+</svg>
+
 <main id="app"></main>
 
 <footer class="app-footer">
