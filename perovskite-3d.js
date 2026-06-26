@@ -21,7 +21,43 @@ function initPerovskite3D(container) {
   renderer.setSize(width, height);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.shadowMap.enabled = true;
-  container.appendChild(renderer.domElement);
+
+  // Add legend
+  const legendDiv = document.createElement('div');
+  legendDiv.style.position = 'absolute';
+  legendDiv.style.bottom = '10px';
+  legendDiv.style.left = '10px';
+  legendDiv.style.fontSize = '12px';
+  legendDiv.style.fontWeight = 'bold';
+  legendDiv.style.color = '#333';
+  legendDiv.style.backgroundColor = 'rgba(255,255,255,0.9)';
+  legendDiv.style.padding = '8px 12px';
+  legendDiv.style.borderRadius = '6px';
+  legendDiv.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+  legendDiv.innerHTML = `
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="width: 12px; height: 12px; background: #4ab8e3; border-radius: 50%;"></div>
+        <span>A</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="width: 12px; height: 12px; background: #8b0000; border-radius: 50%;"></div>
+        <span>X</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="width: 12px; height: 12px; background: #d0d0d0; border: 1px solid #999; border-radius: 50%;"></div>
+        <span>B (Pb)</span>
+      </div>
+    </div>
+  `;
+
+  const canvasContainer = document.createElement('div');
+  canvasContainer.style.position = 'relative';
+  canvasContainer.style.width = '100%';
+  canvasContainer.style.height = height + 'px';
+  canvasContainer.appendChild(renderer.domElement);
+  canvasContainer.appendChild(legendDiv);
+  container.appendChild(canvasContainer);
 
   // Materials
   const aMaterial = new THREE.MeshPhongMaterial({
