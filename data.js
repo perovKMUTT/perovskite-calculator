@@ -74,11 +74,11 @@ const PRESETS = {
     samplePowderDensity: 1.44
   },
   mixed: {
-    name: "Mixed-Cation Perovskite (FA:MA = 3:1)",
-    description: "Blend of FAPbI₃ (3 parts) + MAPbBr₃ (1 part)",
-    ratioFAPbI3: 3,
+    name: "Mixed-Cation Perovskite (FA:MA = 5:1)",
+    description: "Blend of FAPbI₃ (5 parts) + MAPbBr₃ (1 part)",
+    ratioFAPbI3: 5,
     ratioMAPbBr3: 1,
-    bandgap: 1.61
+    bandgap: 1.51
   }
 };
 
@@ -92,7 +92,7 @@ const BANDGAP_DATA = {
   mapbi3: { name: "MAPbI₃", bandgap: 1.55, color: "🔴" },
   fapbi3: { name: "FAPbI₃", bandgap: 1.48, color: "🟠" },
   mapbbr3: { name: "MAPbBr₃", bandgap: 2.25, color: "🟡" },
-  mixed: { name: "Mixed (FA:MA 3:1)", bandgap: 1.61, color: "🟣" }
+  mixed: { name: "Mixed (FA:MA 5:1)", bandgap: 1.51, color: "🟣" }
 };
 
 const HTM_PRESETS = {

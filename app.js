@@ -146,7 +146,7 @@ function renderSetupPage(root) {
       <tr><td>MAPbI₃</td><td>1.55</td><td>Infrared</td></tr>
       <tr><td>FAPbI₃</td><td>1.48</td><td>Near-IR</td></tr>
       <tr><td>MAPbBr₃</td><td>2.25</td><td>Green</td></tr>
-      <tr><td>Mixed (FA:MA 3:1)</td><td>1.61</td><td>Red-IR</td></tr>
+      <tr><td>Mixed (FA:MA 5:1)</td><td>1.51</td><td>Near-IR</td></tr>
     </tbody>
   </table>`);
   bgCard.appendChild(bgTable);
@@ -248,7 +248,7 @@ function renderMixedCationPage(root) {
     <ol style="margin: 0; padding-left: 20px; font-size: 0.92rem; color: var(--text);">
       <li>First prepare fresh <strong>FAPbI₃ solution</strong> (see FAPbI₃ page)</li>
       <li>First prepare fresh <strong>MAPbBr₃ solution</strong> (see MAPbBr₃ page)</li>
-      <li>Mix them together in a <strong>3:1 volume ratio</strong> (FAPbI₃:MAPbBr₃)</li>
+      <li>Mix them together in a <strong>5:1 volume ratio</strong> (FAPbI₃:MAPbBr₃)</li>
     </ol>
   </section>`);
   root.appendChild(info);
@@ -261,7 +261,7 @@ function renderMixedCationPage(root) {
   root.appendChild(mixCard);
 
   function refresh() {
-    const res = calcMixedCation({ samplesN: setup.samples, volPerSampleUL: setup.volPerSampleUL, bufferPct: setup.bufferPct, ratioFAPbI3: 3, ratioMAPbBr3: 1 });
+    const res = calcMixedCation({ samplesN: setup.samples, volPerSampleUL: setup.volPerSampleUL, bufferPct: setup.bufferPct, ratioFAPbI3: 5, ratioMAPbBr3: 1 });
     mixOut.innerHTML = "";
     mixOut.appendChild(row("Total final mixed solution needed", fmt(res.finalVolUL, 1), { unit: "µL", highlight: true }));
     mixOut.appendChild(row("Mix FAPbI₃ solution", fmt(res.volFAPbI3UL, 1), { unit: "µL", highlight: true }));
@@ -272,7 +272,7 @@ function renderMixedCationPage(root) {
   currentRefresh = refresh;
   refresh();
 
-  root.appendChild(el(`<p class="hint">Stir or vortex the mixed solution for 30 seconds to ensure homogeneous blending. The bandgap of this mixed-cation composition is intermediate between FAPbI₃ (1.48 eV) and MAPbBr₃ (2.25 eV).</p>`));
+  root.appendChild(el(`<p class="hint">Stir or vortex the mixed solution for 30 seconds to ensure homogeneous blending. With a 5:1 ratio (heavily FAPbI₃-dominant), the bandgap is closer to FAPbI₃ (1.48 eV) but slightly higher due to the MAPbBr₃ contribution.</p>`));
 }
 
 // ---- Page: dopants ---------------------------------------------------------
