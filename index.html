@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perovskite Solution Calculator</title>
+<meta name="theme-color" content="#7c3aed">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Perovskite Calc">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-title" id="pageTitle">Perovskite Solution Calculator</div>
+</header>
+
+<main id="app"></main>
+
+<nav class="bottomnav">
+  <button data-page="setup" class="nav-btn active"><span class="ic">①</span><span>Setup</span></button>
+  <button data-page="mapbi3" class="nav-btn"><span class="ic">Pb</span><span>MAPbI₃</span></button>
+  <button data-page="fapbi3" class="nav-btn"><span class="ic">Pb</span><span>FAPbI₃</span></button>
+  <button data-page="mapbbr3" class="nav-btn"><span class="ic">Pb</span><span>MAPbBr₃</span></button>
+  <button data-page="dopants" class="nav-btn"><span class="ic">+</span><span>Dopants</span></button>
+  <button data-page="spiro" class="nav-btn"><span class="ic">H</span><span>Spiro</span></button>
+  <button data-page="ptaa" class="nav-btn"><span class="ic">H</span><span>PTAA</span></button>
+  <button data-page="density" class="nav-btn"><span class="ic">ρ</span><span>Density</span></button>
+</nav>
+
+<script src="data.js"></script>
+<script src="calc.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
