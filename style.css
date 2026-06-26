@@ -258,30 +258,6 @@ table.dens-table th { color: var(--muted); font-weight: 600; }
   .field-grid { grid-template-columns: 1fr; }
 }
 
-.perov-structure {
-  width: 100%;
-  max-width: 200px;
-  height: 200px;
-  margin: 20px auto;
-  perspective: 1000px;
-}
-
-.perov-structure svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
-}
-
-@keyframes rotate-perov {
-  from { transform: rotateX(0deg) rotateY(0deg); }
-  to { transform: rotateX(360deg) rotateY(360deg); }
-}
-
-.perov-group {
-  animation: rotate-perov 8s linear infinite;
-  transform-origin: 50% 50%;
-}
-
 .bandgap-table {
   width: 100%;
   border-collapse: collapse;

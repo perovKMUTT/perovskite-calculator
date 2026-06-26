@@ -130,14 +130,6 @@ function row(label, value, opts = {}) {
 function renderSetupPage(root) {
   const s = state.setup;
 
-  // Perovskite structure visualization
-  const vizCard = el(`<section class="card"><h3>ABX₃ Perovskite Structure</h3><div class="perov-structure" id="perov-viz-container"></div></section>`);
-  const vizContainer = vizCard.querySelector("#perov-viz-container");
-  const svgEl = document.getElementById("perovskite-viz").cloneNode(true);
-  svgEl.style.display = "block";
-  vizContainer.appendChild(svgEl);
-  root.appendChild(vizCard);
-
   // Bandgap reference table
   const bgCard = el(`<section class="card"><h3>Bandgap Energy (eV) by Recipe</h3></section>`);
   const bgTable = el(`<table class="bandgap-table">
