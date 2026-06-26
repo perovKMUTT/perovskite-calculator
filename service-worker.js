@@ -1,4 +1,4 @@
-const CACHE_NAME = "perovskite-calc-v6";
+const CACHE_NAME = "perovskite-calc-v7";
 const ASSETS = [
   "./",
   "./index.html",
