@@ -1,4 +1,4 @@
-const CACHE_NAME = "perovskite-calc-v1";
+const CACHE_NAME = "perovskite-calc-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,7 +8,8 @@ const ASSETS = [
   "./app.js",
   "./manifest.json",
   "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icons/icon-512.png",
+  "./icons/kmutt-logo.png"
 ];
 
 self.addEventListener("install", (event) => {
