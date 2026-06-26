@@ -178,6 +178,26 @@ function renderSetupPage(root) {
   refresh();
 
   root.appendChild(el(`<p class="hint">Tip: a typical spin-coating deposition uses ~70 µL of perovskite solution per sample (small lab substrates) and ~35–40 µL of HTM solution. Add 10–20% buffer volume so you don't run short from pipetting losses on the last sample.</p>`));
+
+  // QR Code card
+  const qrCard = el(`<section class="card"><h3>Share with Students</h3><p class="lead">Scan this QR code to open the app on your phone</p><div id="qr-code" style="text-align: center; padding: 20px;"></div></section>`);
+  root.appendChild(qrCard);
+
+  // Generate QR code
+  setTimeout(() => {
+    const qrContainer = document.getElementById("qr-code");
+    if (qrContainer && window.QRCode) {
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: "https://perovkmutt.github.io/perovskite-calculator/",
+        width: 200,
+        height: 200,
+        colorDark: "#7c3aed",
+        colorLight: "#f4f3fb",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+  }, 100);
 }
 
 // ---- Page: perovskite recipe (MAPbI3 / FAPbI3 / MAPbBr3) -------------------
