@@ -25,21 +25,21 @@ function initPerovskite3D(container) {
 
   // Materials
   const aMaterial = new THREE.MeshPhongMaterial({
-    color: 0x5ab4e3,  // Cyan - A cations
+    color: 0x4ab8e3,  // Cyan - A cations
     shininess: 100,
-    emissive: 0x2a7ab8
+    emissive: 0x2a8ab8
   });
 
   const xMaterial = new THREE.MeshPhongMaterial({
-    color: 0xc41e3a,  // Red - X anions
+    color: 0x8b0000,  // Dark red - X anions
     shininess: 90,
-    emissive: 0x8b0000
+    emissive: 0x600000
   });
 
   const bMaterial = new THREE.MeshPhongMaterial({
-    color: 0x8b0000,  // Dark red/maroon - B cation (Pb)
+    color: 0xd0d0d0,  // Light gray - B cation (Pb)
     shininess: 120,
-    emissive: 0x660000
+    emissive: 0xa0a0a0
   });
 
   // Lighting
