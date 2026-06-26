@@ -1,4 +1,5 @@
 // 3D Perovskite Structure Visualization using Three.js
+// Based on standard ABX3 perovskite cubic structure
 
 function initPerovskite3D(container) {
   if (!window.THREE) {
@@ -11,57 +12,80 @@ function initPerovskite3D(container) {
   scene.background = new THREE.Color(0xf4f3fb);
 
   const width = container.clientWidth;
-  const height = 300;
-  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-  camera.position.z = 4;
+  const height = 320;
+  const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+  camera.position.set(4, 4, 4);
+  camera.lookAt(0, 0, 0);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(width, height);
   renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
   // Materials
-  const pbMaterial = new THREE.MeshPhongMaterial({ color: 0xf97316, shininess: 100 });
-  const halMaterial = new THREE.MeshPhongMaterial({ color: 0x06b6d4, shininess: 80 });
-  const aMaterial = new THREE.MeshPhongMaterial({ color: 0x7c3aed, shininess: 60, wireframe: false });
+  const aMaterial = new THREE.MeshPhongMaterial({
+    color: 0x5ab4e3,  // Cyan - A cations
+    shininess: 100,
+    emissive: 0x2a7ab8
+  });
+
+  const xMaterial = new THREE.MeshPhongMaterial({
+    color: 0xc41e3a,  // Red - X anions
+    shininess: 90,
+    emissive: 0x8b0000
+  });
+
+  const bMaterial = new THREE.MeshPhongMaterial({
+    color: 0x8b0000,  // Dark red/maroon - B cation (Pb)
+    shininess: 120,
+    emissive: 0x660000
+  });
 
   // Lighting
-  const light1 = new THREE.DirectionalLight(0xffffff, 0.9);
-  light1.position.set(5, 5, 5);
+  const light1 = new THREE.DirectionalLight(0xffffff, 1.0);
+  light1.position.set(10, 10, 10);
+  light1.castShadow = true;
   scene.add(light1);
 
-  const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
-  light2.position.set(-5, -5, 3);
+  const light2 = new THREE.DirectionalLight(0xffffff, 0.6);
+  light2.position.set(-8, -8, 5);
   scene.add(light2);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambientLight);
 
-  // Central Pb ion
-  const pbGeom = new THREE.SphereGeometry(0.35, 32, 32);
-  const pbSphere = new THREE.Mesh(pbGeom, pbMaterial);
-  pbSphere.position.set(0, 0, 0);
-  scene.add(pbSphere);
+  // Create unit cell cube outline (thin white lines)
+  const cubeSize = 2.0;
+  const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize));
+  const wireframe = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xcccccc, linewidth: 1, transparent: true, opacity: 0.4 }));
+  scene.add(wireframe);
 
-  // X anion positions (octahedral) - relative to Pb center
+  // Central B cation (Pb) - LARGER
+  const bGeom = new THREE.SphereGeometry(0.40, 32, 32);
+  const bSphere = new THREE.Mesh(bGeom, bMaterial);
+  bSphere.position.set(0, 0, 0);
+  bSphere.castShadow = true;
+  scene.add(bSphere);
+
+  // X anion positions (face centers of cube) - 6 anions in octahedral arrangement
   const xPositions = [
-    [0, 1.2, 0],     // top
-    [0, -1.2, 0],    // bottom
-    [1.2, 0, 0],     // right
-    [-1.2, 0, 0],    // left
-    [0, 0, 1.2],     // front
-    [0, 0, -1.2]     // back
+    [1.0, 0, 0],      // right
+    [-1.0, 0, 0],     // left
+    [0, 1.0, 0],      // top
+    [0, -1.0, 0],     // bottom
+    [0, 0, 1.0],      // front
+    [0, 0, -1.0]      // back
   ];
 
-  const xSpheres = [];
   xPositions.forEach((pos) => {
-    const xGeom = new THREE.SphereGeometry(0.28, 32, 32);
-    const xSphere = new THREE.Mesh(xGeom, halMaterial);
+    const xGeom = new THREE.SphereGeometry(0.32, 32, 32);
+    const xSphere = new THREE.Mesh(xGeom, xMaterial);
     xSphere.position.set(pos[0], pos[1], pos[2]);
+    xSphere.castShadow = true;
     scene.add(xSphere);
-    xSpheres.push(xSphere);
 
-    // Bond from Pb to X
+    // Bond from B to X
     const bondGeom = new THREE.BufferGeometry();
     bondGeom.setAttribute(
       'position',
@@ -70,38 +94,38 @@ function initPerovskite3D(container) {
         3
       )
     );
-    const bondMat = new THREE.LineBasicMaterial({ color: 0x94a3b8, linewidth: 2 });
+    const bondMat = new THREE.LineBasicMaterial({ color: 0xb0b0b0, linewidth: 2 });
     const bond = new THREE.Line(bondGeom, bondMat);
     scene.add(bond);
   });
 
-  // A cation positions (cube corners)
+  // A cation positions (cube corners) - 8 cations
   const aPositions = [
-    [1.5, 1.5, 1.5],
-    [-1.5, 1.5, 1.5],
-    [1.5, -1.5, 1.5],
-    [-1.5, -1.5, 1.5],
-    [1.5, 1.5, -1.5],
-    [-1.5, 1.5, -1.5],
-    [1.5, -1.5, -1.5],
-    [-1.5, -1.5, -1.5]
+    [1.0, 1.0, 1.0],
+    [-1.0, 1.0, 1.0],
+    [1.0, -1.0, 1.0],
+    [-1.0, -1.0, 1.0],
+    [1.0, 1.0, -1.0],
+    [-1.0, 1.0, -1.0],
+    [1.0, -1.0, -1.0],
+    [-1.0, -1.0, -1.0]
   ];
 
   aPositions.forEach((pos) => {
-    const aGeom = new THREE.SphereGeometry(0.25, 32, 32);
+    const aGeom = new THREE.SphereGeometry(0.28, 32, 32);
     const aMesh = new THREE.Mesh(aGeom, aMaterial);
     aMesh.position.set(pos[0], pos[1], pos[2]);
-    aMesh.userData.opacity = 0.7;
+    aMesh.castShadow = true;
     scene.add(aMesh);
   });
 
-  // Animation loop
+  // Animation loop with smooth rotation
   function animate() {
     requestAnimationFrame(animate);
 
-    // Rotate the entire structure
-    scene.rotation.x += 0.003;
-    scene.rotation.y += 0.005;
+    // Smooth continuous rotation
+    scene.rotation.x += 0.002;
+    scene.rotation.y += 0.003;
 
     renderer.render(scene, camera);
   }
